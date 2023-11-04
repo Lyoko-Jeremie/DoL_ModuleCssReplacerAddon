@@ -1,5 +1,5 @@
 import type {AddonPluginHookPointEx} from "../../../dist-BeforeSC2/AddonPlugin";
-import type {LogWrapper} from "../../../dist-BeforeSC2/ModLoadController";
+import type {LifeTimeCircleHook, LogWrapper} from "../../../dist-BeforeSC2/ModLoadController";
 import type {ModBootJsonAddonPlugin, ModInfo} from "../../../dist-BeforeSC2/ModLoader";
 import type {ModZipReader} from "../../../dist-BeforeSC2/ModZipReader";
 import type {SC2DataManager} from "../../../dist-BeforeSC2/SC2DataManager";
@@ -34,7 +34,7 @@ export function checkParams(p: any): p is ReplaceParams {
         ;
 }
 
-export class ModuleCssReplacer implements AddonPluginHookPointEx {
+export class ModuleCssReplacer implements AddonPluginHookPointEx, LifeTimeCircleHook {
     private logger: LogWrapper;
 
     constructor(
@@ -42,7 +42,7 @@ export class ModuleCssReplacer implements AddonPluginHookPointEx {
         public gModUtils: ModUtils,
     ) {
         this.logger = gModUtils.getLogger();
-        // this.gSC2DataManager.getModLoadController().addLifeTimeCircleHook('ModuleCssReplacer', this);
+        this.gSC2DataManager.getModLoadController().addLifeTimeCircleHook('ModuleCssReplacer', this);
     }
 
     test(k: string) {
