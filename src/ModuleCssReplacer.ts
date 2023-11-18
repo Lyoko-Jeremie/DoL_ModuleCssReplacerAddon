@@ -118,20 +118,20 @@ export class ModuleCssReplacer implements AddonPluginHookPointEx, LifeTimeCircle
         });
         if (!ad) {
             // never go there
-            console.error('ModuleCssReplacer do_patch() (!ad).', [ri.mod]);
+            console.error('[ModuleCssReplacer] do_patch() (!ad).', [ri.mod]);
             return;
         }
         const params = ad.params;
         if (!params || !Array.isArray(params)) {
-            console.error('ModuleCssReplacer do_patch() (!params).', [ri.mod]);
-            this.logger.error(`ModuleCssReplacer do_patch() invalid params: ${ri.mod.name}`);
+            console.error('[ModuleCssReplacer] do_patch() (!params).', [ri.mod]);
+            this.logger.error(`[ModuleCssReplacer] do_patch() invalid params: ${ri.mod.name}`);
             return;
         }
         for (const p of params) {
 
             if (!checkParams(p)) {
-                console.error('ModuleCssReplacer do_patch() (!this.checkParams(p)).', [ri.mod, p]);
-                this.logger.error(`ModuleCssReplacer do_patch() invalid params p: [${ri.mod.name}] [${JSON.stringify(p)}]`);
+                console.error('[ModuleCssReplacer] do_patch() (!this.checkParams(p)).', [ri.mod, p]);
+                this.logger.error(`[ModuleCssReplacer] do_patch() invalid params p: [${ri.mod.name}] [${JSON.stringify(p)}]`);
                 continue;
             }
 
@@ -142,8 +142,8 @@ export class ModuleCssReplacer implements AddonPluginHookPointEx, LifeTimeCircle
 
             const pp = ns.get(p.cssName);
             if (!pp) {
-                console.error('ModuleCssReplacer do_patch() (!pp).', [ri.mod, p]);
-                this.logger.error(`ModuleCssReplacer do_patch() cannot find passage: [${ri.mod.name}] [${p.cssName}]`);
+                console.error('[ModuleCssReplacer] do_patch() (!pp).', [ri.mod, p]);
+                this.logger.error(`[ModuleCssReplacer] do_patch() cannot find passage: [${ri.mod.name}] [${p.cssName}]`);
                 continue;
             }
             let replaceString = p.replace;
@@ -151,16 +151,16 @@ export class ModuleCssReplacer implements AddonPluginHookPointEx, LifeTimeCircle
                 const f = ri.modZip.zip.file(p.replaceFile!);
                 const rf = await f?.async('string');
                 if (!rf) {
-                    console.error('ModuleCssReplacer do_patch() (!rf).', [ri.mod, p]);
-                    this.logger.error(`ModuleCssReplacer do_patch() cannot find replaceFile: [${ri.mod.name}] [${p.replaceFile}]`);
+                    console.error('[ModuleCssReplacer] do_patch() (!rf).', [ri.mod, p]);
+                    this.logger.error(`[ModuleCssReplacer] do_patch() cannot find replaceFile: [${ri.mod.name}] [${p.replaceFile}]`);
                     continue;
                 }
                 replaceString = rf;
             }
             if (p.findString) {
                 if (pp.innerText.indexOf(p.findString) < 0) {
-                    console.error('ModuleCssReplacer do_patch() (pp.content.search(p.findString) < 0).', [ri.mod, p]);
-                    this.logger.error(`ModuleCssReplacer do_patch() cannot find findString: [${ri.mod.name}] findString:[${p.findString}] in:[${p.cssName}]`);
+                    console.error('[ModuleCssReplacer] do_patch() (pp.content.search(p.findString) < 0).', [ri.mod, p]);
+                    this.logger.error(`[ModuleCssReplacer] do_patch() cannot find findString: [${ri.mod.name}] findString:[${p.findString}] in:[${p.cssName}]`);
                     continue;
                 }
                 if (debugFlag) {
@@ -177,8 +177,8 @@ export class ModuleCssReplacer implements AddonPluginHookPointEx, LifeTimeCircle
                 }
             } else if (p.findRegex) {
                 if (pp.innerText.search(new RegExp(p.findRegex)) < 0) {
-                    console.error('ModuleCssReplacer do_patch() (pp.content.search(p.findRegex) < 0).', [ri.mod, p]);
-                    this.logger.error(`ModuleCssReplacer do_patch() cannot find findRegex: [${ri.mod.name}] findRegex:[${p.findRegex}] in:[${p.cssName}]`);
+                    console.error('[ModuleCssReplacer] do_patch() (pp.content.search(p.findRegex) < 0).', [ri.mod, p]);
+                    this.logger.error(`[ModuleCssReplacer] do_patch() cannot find findRegex: [${ri.mod.name}] findRegex:[${p.findRegex}] in:[${p.cssName}]`);
                     continue;
                 }
                 if (debugFlag) {
@@ -194,12 +194,12 @@ export class ModuleCssReplacer implements AddonPluginHookPointEx, LifeTimeCircle
                     console.log(`[ModuleCssReplacer] After:`, pp.innerText);
                 }
             } else {
-                console.error('ModuleCssReplacer do_patch() (!p.findString && !p.findRegex).', [ri.mod, p]);
-                this.logger.error(`ModuleCssReplacer do_patch() invalid findString and findRegex: [${ri.mod.name}] [${p.findString}] [${p.findRegex}]`);
+                console.error('[ModuleCssReplacer] do_patch() (!p.findString && !p.findRegex).', [ri.mod, p]);
+                this.logger.error(`[ModuleCssReplacer] do_patch() invalid findString and findRegex: [${ri.mod.name}] [${p.findString}] [${p.findRegex}]`);
                 continue;
             }
-            console.log('ModuleCssReplacer do_patch() done.', [ri.mod, p]);
-            this.logger.log(`ModuleCssReplacer do_patch() done: [${ri.mod.name}] [${p.cssName}] [${p.findString || ''}]/[${p.findRegex || ''}]`);
+            console.log('[ModuleCssReplacer] do_patch() done.', [ri.mod, p]);
+            this.logger.log(`[ModuleCssReplacer] do_patch() done: [${ri.mod.name}] [${p.cssName}] [${p.findString || ''}]/[${p.findRegex || ''}]`);
         }
     }
 
