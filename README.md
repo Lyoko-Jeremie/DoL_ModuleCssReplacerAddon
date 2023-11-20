@@ -7,6 +7,9 @@
 
 https://github.com/Eltirosto/Degrees-of-Lewdity-Chinese-Localization/issues/203
 
+如果可以的话，请尽可能使用css “层叠样式表” 的 “层叠” 特性，来覆盖游戏原有的css样式。  
+例如可以用更加精确的css选择器来选择要修改的元素，以便以比原有游戏css更高的优先级来修改样式。  
+或者可以通过在css中使用 `!important` 来覆盖原有的css样式，（但这样会造成其他问题，不推荐这么做）。   
 
 ---
 
