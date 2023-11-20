@@ -3,6 +3,13 @@
 
 ---
 
+如非必须，尽量不要使用这个 mod ，因为游戏本身的设计原因，再加上浏览器本身工作原理的的设计缺陷，使用这个mod会导致触发css重排，导致性能急剧下降。
+
+https://github.com/Eltirosto/Degrees-of-Lewdity-Chinese-Localization/issues/203
+
+
+---
+
 this mod export addon:
 
 `ModuleCssReplacer` : `ModuleCssReplacerAddon`
